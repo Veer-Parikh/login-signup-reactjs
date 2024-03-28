@@ -1,17 +1,25 @@
-import firebase from 'firebase/app'
-import "firebase/auth"
-import dotenv from 'dotenv'
-dotenv.firebaseConfig()
+import { getAuth,createUserWithEmailAndPassword } from "firebase/auth";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const app = firebase.initializeApp({
-    apiKey: process.env.REACT_APP_apikey,
-    authDomain: process.env.REACT_APP_authDomain,
-    projectId: process.env.REACT_APP_projectId,
-    storageBucket: process.env.REACT_APP_storageBucket,
-    messagingSenderId: process.envREACT_APP_messagingSenderId,
-    appId: process.env.REACT_APP_appId
-  });
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAYprTryUxEqqUboOhiUN1sFSLtMCLg-Jg",
+  authDomain: "auth-dev-cf868.firebaseapp.com",
+  projectId: "auth-dev-cf868",
+  storageBucket: "auth-dev-cf868.appspot.com",
+  messagingSenderId: "858349491427",
+  appId: "1:858349491427:web:e8cbcedb3c40e9b73ce1d6"
+};
 
-export const auth = app.auth()
-export default app
-  
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+export { app }; // Export the Firebase app
+
+// Optionally, if you want to export the authentication object as well
+
+const auth = getAuth(app);
+export { auth,createUserWithEmailAndPassword };
