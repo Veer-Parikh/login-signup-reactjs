@@ -1,8 +1,6 @@
-import { getAuth,createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth,sendPasswordResetEmail,createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,12 +12,8 @@ const firebaseConfig = {
   appId: "1:858349491427:web:e8cbcedb3c40e9b73ce1d6"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-export { app }; // Export the Firebase app
-
-// Optionally, if you want to export the authentication object as well
+export { app };
 
 const auth = getAuth(app);
-export { auth,createUserWithEmailAndPassword };
+export { auth,sendPasswordResetEmail,createUserWithEmailAndPassword,signInWithEmailAndPassword };

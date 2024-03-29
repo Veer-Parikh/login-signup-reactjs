@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged,signInWithEmailAndPassword,sendPasswordResetEmail } from 'firebase/auth';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { app } from '../firebase'; // Assuming 'app' is your Firebase app
 
@@ -19,9 +19,26 @@ export const AuthProvider = ({ children }) => {
       setCurrentUser(user);
     } catch (error) {
       console.error('Error creating user:', error.message);
-      throw error; // Rethrow the error so that it can be handled by the caller
+      throw error; 
     }
   };
+
+  const login = async (email,password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+      throw error;
+    }
+  }
+
+  const logout = async () => {
+    auth.signOut()
+  }
+
+  function reset(email) {
+    return sendPasswordResetEmail(email)
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,6 +52,9 @@ export const AuthProvider = ({ children }) => {
   const value = {
     currentUser,
     signup,
+    login,
+    logout,
+    reset
   };
 
   return (
